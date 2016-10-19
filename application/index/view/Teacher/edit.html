@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>编辑数据</title>
+</head>
+
+<body class="contanier">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="{:url('update')}" method="post">
+                <label>姓名:</label>
+                <input type="hidden" name="id" value="{$teacher->getData('id')}" />
+                <input type="text" name="name" value="{$teacher->getData('name')}" />
+                <label>用户名:</label>
+                <input type="text" name="username" value="{$teacher->getData('username')}" />
+                <label>性别:</label>
+                <select name="sex">
+                    <option value="0">男</option>
+                    <option value="1" {eq name="teacher->getData('sex')" value="1"}selected="selected"{/eq}>女</option>
+                </select>
+                <label>邮箱:</label>
+                <input type="email" name="email" value="{$teacher->getData('email')}" />
+                <button type="submit">保存</button>
+            </form>
+        </div>
+    </div>
+    {:var_dump($teacher)}
+</body>
+
+</html>
