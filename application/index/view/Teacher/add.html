@@ -9,7 +9,7 @@
 <body class="contanier">
     <div class="row">
         <div class="col-md-12">
-            <form action="insert" method="post">
+            <form action="{:url('insert')}" method="post">
                 <label>姓名:</label>
                 <input type="text" name="name" />
                 <label>用户名:</label>
@@ -20,8 +20,7 @@
                     <option value="1">女</option>
                 </select>
                 <label>邮箱:</label>
-                <input type="text" name="email" />
-                <input type="hidden" name="create_time" value="{:time()}" />         
+                <input type="email" name="email" />
                 <button type="submit">保存</button>
             </form>
         </div>
