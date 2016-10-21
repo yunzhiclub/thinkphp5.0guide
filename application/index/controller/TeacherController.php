@@ -1,49 +1,37 @@
 <?php
 namespace app\index\controller;
-use think\Controller;   // 用于与V层进行数据传递
 use app\common\model\Teacher;  // 教师模型
 use think\Request;      // 请求
-use think\Config;       // 配置
 /**
  * 教师管理，继承think\Controller后，就可以利用V层对数据进行打包了。
  */
-class TeacherController extends Controller
+class TeacherController extends IndexController
 {
     public function index()
     {
-        try {
-            // 获取查询信息
-            $name = Request::instance()->get('name');
+        // 获取查询信息
+        $name = Request::instance()->get('name');
 
-            $pageSize = 5; // 每页显示5条数据
+        $pageSize = 5; // 每页显示5条数据
 
-            // 实例化Teacher
-            $Teacher = new Teacher; 
+        // 实例化Teacher
+        $Teacher = new Teacher; 
 
-            // 按条件查询数据并调用分页
-            $teachers = $Teacher->where('name', 'like', '%' . $name . '%')->paginate($pageSize, false, [
-                'query'=>[
-                    'name' => $name,
-                    ],
-                ]); 
+        // 按条件查询数据并调用分页
+        $teachers = $Teacher->where('name', 'like', '%' . $name . '%')->paginate($pageSize, false, [
+            'query'=>[
+                'name' => $name,
+                ],
+            ]); 
 
-            // 向V层传数据
-            $this->assign('teachers', $teachers);
+        // 向V层传数据
+        $this->assign('teachers', $teachers);
 
-            // 取回打包后的数据
-            $htmls = $this->fetch();
+        // 取回打包后的数据
+        $htmls = $this->fetch();
 
-            // 将数据返回给用户
-            return $htmls;
-
-        // 获取到ThinkPHP的内置异常时，直接向上抛出，交给ThinkPHP处理
-        } catch (\think\Exception\HttpResponseException $e) {
-            throw $e;
-
-        // 获取到正常的异常时，输出异常
-        } catch (\Exception $e) {
-            return $e->getMessage();
-        } 
+        // 将数据返回给用户
+        return $htmls;
     }
 
     public function insert()
@@ -145,6 +133,7 @@ class TeacherController extends Controller
         // 进行跳转
         return $this->success('删除成功', $Request->header('referer')); 
     }
+
 
     public function edit()
     {

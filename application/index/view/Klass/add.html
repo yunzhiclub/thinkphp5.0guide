@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>添加</title>
+</head>
+<body>
+    <form action="{:url('save')}" method="post">
+        <label for="name">name:</label><input type="text" name="name" id="name" />
+        <label for="teacher">teacher:</label>
+        <select name="teacher_id" id="teacher">
+           {volist name="teachers" id="teacher"}
+            <option value="{$teacher->getData('id')}">{$teacher->getData('name')}</option>
+           {/volist}
+        </select>
+        <button type="submit">submit</button>
+    </form>
+</body>
+</html>
