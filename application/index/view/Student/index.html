@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>班级管理</title>
+    <title>学生管理</title>
     <link rel="stylesheet" type="text/css" href="/thinkphp5/public/static/bootstrap-3.3.5-dist/css/bootstrap.min.css">
 </head>
 
@@ -15,8 +15,8 @@
                 <div class="col-md-8">
                     <form class="form-inline" action="{:url('', input('get.'))}">
                         <div class="form-group">
-                            <label class="sr-only" for="name">名称</label>
-                            <input name="name" type="text" class="form-control" placeholder="名称..." value="{:input('get.name')}">
+                            <label class="sr-only" for="name">姓名</label>
+                            <input name="name" type="text" class="form-control" placeholder="姓名..." value={:input('get.name')}>
                         </div>
                         <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i>&nbsp;查询</button>
                     </form>
@@ -29,22 +29,30 @@
             <table class="table table-hover table-bordered">
                 <tr class="info">
                     <th>序号</th>
-                    <th>名称</th>
+                    <th>姓名</th>
+                    <th>学号</th>
+                    <th>性别</th>
+                    <th>email</th>
+                    <td>创建时间</td>
+                    <th>班级</th>
                     <th>辅导员</th>
                     <th>操作</th>
                 </tr>
-                {volist name="klasses" id="klass" key="key"}
+                {volist name="students" id="student" key="key"}
                 <tr>
                     <td>{$key}</td>
-                    <td>{$klass->getData('name')}</td>
-                    <td>
-                        {$klass->Teacher->name}
-                    </td>
-                    <td><a class="btn btn-danger btn-sm" href="{:url('delete?id=' . $klass->getData('id'))}"><i class="glyphicon glyphicon-trash"></i>&nbsp;删除</a>&nbsp;<a class="btn btn-sm btn-primary" href="{:url('edit?id=' . $klass->getData('id'))}"><i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑</a></td>
+                    <td>{$student->getData('name')}</td>
+                    <td>{$student->getData('num')}</td>
+                    <td>{$student->sex}</td>
+                    <td>{$student->getData('email')}</td>
+                    <td>{$student->create_time}</td>
+                    <td>{$student->Klass->name}</td>
+                    <td></td>
+                    <td><a class="btn btn-danger btn-sm" href="{:url('delete?id=' . $student->getData('id'))}"><i class="glyphicon glyphicon-trash"></i>&nbsp;删除</a>&nbsp;<a class="btn btn-sm btn-primary" href="{:url('edit?id=' . $student->getData('id'))}"><i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑</a></td>
                 </tr>
                 {/volist}
             </table>
-            {$klasses->render()}
+            {$students->render()}
         </div>
     </div>
 </body>

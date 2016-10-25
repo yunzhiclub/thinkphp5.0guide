@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>班级管理</title>
+    <title>课程管理</title>
     <link rel="stylesheet" type="text/css" href="/thinkphp5/public/static/bootstrap-3.3.5-dist/css/bootstrap.min.css">
 </head>
 
@@ -30,21 +30,17 @@
                 <tr class="info">
                     <th>序号</th>
                     <th>名称</th>
-                    <th>辅导员</th>
                     <th>操作</th>
                 </tr>
-                {volist name="klasses" id="klass" key="key"}
+                {volist name="courses" id="course" key="key"}
                 <tr>
                     <td>{$key}</td>
-                    <td>{$klass->getData('name')}</td>
-                    <td>
-                        {$klass->Teacher->name}
-                    </td>
-                    <td><a class="btn btn-danger btn-sm" href="{:url('delete?id=' . $klass->getData('id'))}"><i class="glyphicon glyphicon-trash"></i>&nbsp;删除</a>&nbsp;<a class="btn btn-sm btn-primary" href="{:url('edit?id=' . $klass->getData('id'))}"><i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑</a></td>
+                    <td>{$course->getData('name')}</td>
+                    <td><a class="btn btn-danger btn-sm" href="{:url('delete?id=' . $course->getData('id'))}"><i class="glyphicon glyphicon-trash"></i>&nbsp;删除</a>&nbsp;<a class="btn btn-sm btn-primary" href="{:url('edit?id=' . $course->getData('id'))}"><i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑</a></td>
                 </tr>
                 {/volist}
             </table>
-            {$klasses->render()}
+            {$courses->render()}
         </div>
     </div>
 </body>

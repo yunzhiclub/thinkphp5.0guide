@@ -39,9 +39,9 @@ class LoginController extends Controller
     public function logOut()
     {
         if (Teacher::logOut()) {
-            return $this->success('logout success', url('index'));
+            return $this->success('logout success', url('Login/index'));
         } else {
-            return $this->error('logout error', url('index'));
+            return $this->error('logout error', url('Login/index'));
         }
     }
 }

@@ -13,12 +13,8 @@ class Klass extends Model
      * @return Teacher 教师
      * @author <panjie@yunzhiclub.com> http://www.mengyunzhi.com
      */
-    public function getTeacher()
+    public function Teacher()
     {
-        if (is_null($this->Teacher)) {
-            $teacherId = $this->getData('teacher_id');
-            $this->Teacher = Teacher::get($teacherId);
-        }
-        return $this->Teacher;
+        return $this->belongsTo('teacher');
     }
 }
