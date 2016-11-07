@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!--修正一个小错误，正确的简体中文界面应该声明为 zh-hans-->
 <html lang="zh-hans">
 <head>
     <meta charset="UTF-8">
@@ -16,6 +15,7 @@
                     <th>性别</th>
                     <th>邮箱</th>
                     <th>用户名</th>
+                    <th>操作</th>
                 </tr>
                 {volist name="teachers" id="teacher" key="key"}
                 <tr>
@@ -24,12 +24,13 @@
                     <td>{eq name='teacher->getData("sex")' value='0'}男{else /}女{/eq}</td>
                     <td>{$teacher->getData('email')}</td>
                     <td>{$teacher->getData('username')}</td>
+                    <td>
+                        <a href="{:url('delete?id=' . $teacher->getData('id'))}">删除</a>
+                    </td>
                 </tr>
                 {/volist}
             </table>
         </div>
     </div>
 </body>
-
-</html>
 </html>

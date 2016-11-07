@@ -70,6 +70,10 @@ class TeacherController extends Controller
 
     public function delete()
     {
+        // 获取get数据
+        var_dump(Request::instance()->param());
+        return;
+        
         // 获取要删除的对象
         $Teacher = Teacher::get(14);
 
