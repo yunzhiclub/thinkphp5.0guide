@@ -99,30 +99,43 @@ class TeacherController extends Controller
      */
     public function delete()
     {
-        // 获取pathinfo传入的ID值.
-        $id = Request::instance()->param('id/d'); // /d 表示将数值转化为 整形
+        try {
+            // 实例化请求类
+            $Request = Request::instance();
+            
+            // 获取get数据
+            $id = Request::instance()->param('id/d');
+            
+            // 判断是否成功接收
+            if (0 === $id) {
+                throw new \Exception('未获取到ID信息', 1);
+            }
 
-        if (0 === $id) {
-            return $this->error('未获取到ID信息');
-        }
+            // 获取要删除的对象
+            $Teacher = Teacher::get($id);
 
-        // 获取要删除的对象
-        $Teacher = Teacher::get($id);
+            // 要删除的对象存在
+            if (is_null($Teacher)) {
+                throw new \Exception('不存在id为' . $id . '的教师，删除失败', 1);
+            }
 
-        // 要删除的对象不存在
-        if (is_null($Teacher)) {
-            return $this->error('不存在id为' . $id . '的教师，删除失败');
-        }
+            // 删除对象
+            if (!$Teacher->delete()) {
+                return $this->error('删除失败:' . $Teacher->getError());
+            }
 
-        // 删除对象
-        if (!$Teacher->delete()) {
-            return $this->error('删除失败:' . $Teacher->getError());
-        }
+        // 获取到ThinkPHP的内置异常时，直接向上抛出，交给ThinkPHP处理
+        } catch (\think\Exception\HttpResponseException $e) {
+            throw $e;
 
-        // 进行跳转
-        return $this->success('删除成功', url('index'));
+        // 获取到正常的异常时，输出异常
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        } 
+
+        // 进行跳转 
+        return $this->success('删除成功', $Request->header('referer')); 
     }
-
 
     /**
      * 编辑
@@ -188,6 +201,22 @@ class TeacherController extends Controller
         }
        
         return $message;
+    }
+
+    public function test()
+    {
+        try {
+            throw new \Exception("Error Processing Request", 1);
+            return $this->error("系统发生错误");
+
+        // 获取到ThinkPHP的内置异常时，直接向上抛出，交给ThinkPHP处理
+        } catch (\think\Exception\HttpResponseException $e) {
+            throw $e;
+
+        // 获取到正常的异常时，输出异常
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        } 
     }
 }
 
