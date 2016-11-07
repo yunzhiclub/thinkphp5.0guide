@@ -136,7 +136,23 @@ class TeacherController extends Controller
      */
     public function update()
     {
-        var_dump(Request::instance()->post());
+        // 接收数据
+        $teacher = Request::instance()->post();
+
+        // 将数据存入Teacher表
+        $Teacher = new Teacher();
+        $message = '更新成功';
+
+        // 依据状态定制提示信息
+        try {
+            if (false === $Teacher->validate(true)->isUpdate()->save($teacher)) {
+                $message = '更新失败：' . $Teacher->getError();
+            }
+        } catch (\Exception $e) {
+            $message = '更新失败:' . $e->getMessage();
+        }
+
+        return $message;
     }
 }
 
