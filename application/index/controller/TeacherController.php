@@ -40,27 +40,39 @@ class TeacherController extends Controller
      */
     public function insert()
     {
-        // 接收传入数据
-        $postData = Request::instance()->post();    
+        $message = '';  // 提示信息
 
-        // 实例化Teacher空对象
-        $Teacher = new Teacher();
+        try {
+            // 接收传入数据
+            $postData = Request::instance()->post();    
 
-        // 为对象赋值
-        $Teacher->name = $postData['name'];
-        $Teacher->username = $postData['username'];
-        $Teacher->sex = $postData['sex'];
-        $Teacher->email = $postData['email'];
+            // 实例化Teacher空对象
+            $Teacher = new Teacher();
 
-        // 新增对象至数据表
-        $result = $Teacher->validate(true)->save();
+            // 为对象赋值
+            $Teacher->name = $postData['name'];
+            $Teacher->username = $postData['username'];
+            $Teacher->sex = $postData['sex'];
+            $Teacher->email = $postData['email'];
 
-        // 反馈结果
-        if (false === $result) {
-            return '新增失败:' . $Teacher->getError();
-        } else {
-            return  '新增成功。新增ID为:' . $Teacher->id;
+            // 新增对象至数据表
+            $result = $Teacher->validate(true)->save();
+
+            // 反馈结果
+            if (false === $result)
+            {
+                // 验证未通过，发生错误
+                $message = '新增失败:' . $Teacher->getError();
+            } else {
+                // 提示操作成功，并跳转至教师管理列表
+                return $this->success('用户' . $Teacher->name . '新增成功。', url('index'));
+            }
+        } catch (\Exception $e) {
+            // 发生异常
+            return $e->getMessage();
         }
+
+        return $this->error($message);
     }
 
     /**
