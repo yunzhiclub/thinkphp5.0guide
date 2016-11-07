@@ -73,7 +73,7 @@ class TeacherController extends Controller
         // 获取pathinfo传入的ID值.
         $id = Request::instance()->param('id/d'); // /d 表示将数值转化为 整形
 
-        if (0 === $id) {
+        if (is_null($id) || 0 === $id) {
             return $this->error('未获取到ID信息');
         }
 
