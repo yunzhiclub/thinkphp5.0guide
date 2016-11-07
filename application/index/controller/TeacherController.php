@@ -24,33 +24,16 @@ class TeacherController extends Controller
         // 将数据返回给用户
         return $htmls;
     }
+
+    /**
+     * 插入新数据
+     * @return   html                   
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2016-11-07T12:31:24+0800
+     */
+    public function insert()
+    {
+        return 'hello insert';
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
