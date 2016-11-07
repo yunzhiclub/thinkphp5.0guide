@@ -22,7 +22,7 @@
                     <th>用户名</th>
                     <th>操作</th>
                 </tr>
-                {volist name="teachers" id="_Teacher" key="key"}
+                {foreach name="teachers" id="_Teacher" key="key"}
                 <tr>
                     <td>{$key}</td>
                     <td>{$_Teacher->getData('name')}</td>
@@ -35,7 +35,7 @@
                         <a href="{:url('delete?id=' . $_Teacher->getData('id'))}">删除</a>
                     </td>
                 </tr>
-                {/volist}
+                {/foreach}
             </table>
             {$teachers->render()}
         </div>

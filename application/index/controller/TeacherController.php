@@ -229,18 +229,16 @@ class TeacherController extends Controller
 
     public function test()
     {
-        try {
-            throw new \Exception("Error Processing Request", 1);
-            return $this->error("系统发生错误");
+        $pageSize = 5; // 每次显示5条数据
+        $Teacher = new Teacher; 
 
-        // 获取到ThinkPHP的内置异常时，直接向上抛出，交给ThinkPHP处理
-        } catch (\think\Exception\HttpResponseException $e) {
-            throw $e;
+        // 调用分页
+        $teachers = $Teacher->paginate($pageSize);
+        var_dump($teachers);
 
-        // 获取到正常的异常时，输出异常
-        } catch (\Exception $e) {
-            return $e->getMessage();
-        } 
+        // 不调用分页
+        $teachers = $Teacher->select();
+        var_dump($teachers);
     }
 }
 
