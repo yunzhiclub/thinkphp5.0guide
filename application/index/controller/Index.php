@@ -1,13 +1,12 @@
 <?php
-// 该文件位于application\index\controller文件夹中
-namespace app\index\controller;
+namespace app\index\controller;     //命名空间，也说明了文件所在的文件夹
+use think\Db;   // 引用数据库操作类
 
-// 我的文件名叫做Index.php，我的名字对应的叫做Index。
+// Index既是类名，也是文件名，说明这个文件的名字为Index.php。
 class Index
 {
-    // 我的方法名叫index
     public function index()
     {
-        return 'Hello World!';
+        var_dump(Db::name('teacher')->find()); //获取数据表中第一条数据
     }
 }
