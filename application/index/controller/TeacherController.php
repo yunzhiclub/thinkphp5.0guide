@@ -16,7 +16,6 @@ class TeacherController extends Controller
         try {
             // 获取查询信息
             $name = Request::instance()->get('name');
-            echo $name;
 
             $pageSize = 5; // 每页显示5条数据
 
@@ -29,7 +28,11 @@ class TeacherController extends Controller
             }
 
             // 按条件查询数据并调用分页
-            $teachers = $Teacher->paginate($pageSize);
+            $teachers = $Teacher->paginate($pageSize, false, [
+                'query'=>[
+                    'name' => $name,
+                    ],
+                ]);
 
             // 向V层传数据
             $this->assign('teachers', $teachers);
