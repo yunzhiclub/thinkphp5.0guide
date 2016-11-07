@@ -70,22 +70,28 @@ class TeacherController extends Controller
 
     public function delete()
     {
-        // 获取get数据
-        var_dump(Request::instance()->param());
-        return;
-        
-        // 获取要删除的对象
-        $Teacher = Teacher::get(14);
+        // 获取pathinfo传入的ID值.
+        $id = Request::instance()->param('id/d'); // /d 表示将数值转化为 整形
 
-        // 要删除的对象存在
-        if (!is_null($Teacher)) {
-            // 删除对象
-            if ($Teacher->delete()) {
-                return '删除成功';
-            }
+        if (0 === $id) {
+            return $this->error('未获取到ID信息');
         }
 
-        return '删除失败';
+        // 获取要删除的对象
+        $Teacher = Teacher::get($id);
+
+        // 要删除的对象不存在
+        if (is_null($Teacher)) {
+            return $this->error('不存在id为' . $id . '的教师，删除失败');
+        }
+
+        // 删除对象
+        if (!$Teacher->delete()) {
+            return $this->error('删除失败:' . $Teacher->getError());
+        }
+
+        // 进行跳转
+        return $this->success('删除成功', url('index'));
     }
 }
 
