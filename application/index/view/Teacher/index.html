@@ -25,6 +25,8 @@
                     <td>{$teacher->getData('email')}</td>
                     <td>{$teacher->getData('username')}</td>
                     <td>
+                        <a href="{:url('edit?id=' . $teacher->getData('id'))}">编辑</a>
+                        &nbsp;&nbsp;
                         <a href="{:url('delete?id=' . $teacher->getData('id'))}">删除</a>
                     </td>
                 </tr>

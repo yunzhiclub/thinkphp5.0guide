@@ -68,6 +68,13 @@ class TeacherController extends Controller
         return $htmls;
     }
 
+
+    /**
+     * 删除
+     * @return   跳转                   
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2016-11-07T13:52:07+0800
+     */
     public function delete()
     {
         // 获取pathinfo传入的ID值.
@@ -92,6 +99,18 @@ class TeacherController extends Controller
 
         // 进行跳转
         return $this->success('删除成功', url('index'));
+    }
+
+
+    /**
+     * 编辑
+     * @return   html                   
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2016-11-07T13:52:29+0800
+     */
+    public function edit()
+    {
+        var_dump(Request::instance()->param());
     }
 }
 
