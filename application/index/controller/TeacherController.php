@@ -70,8 +70,12 @@ class TeacherController extends Controller
      */
     public function add()
     {
-        $htmls = $this->fetch();
-        return $htmls;
+        try {
+            $htmls = $this->fetch();
+            return $htmls;
+        } catch (\Exception $e) {
+            return '系统错误' . $e->getMessage();
+        }
     }
 
 
