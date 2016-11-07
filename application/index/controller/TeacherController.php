@@ -33,6 +33,9 @@ class TeacherController extends Controller
      */
     public function insert()
     {
+        var_dump($_POST);
+        return ;    // 提前返回
+
         // 实例化Teacher空对象
         $Teacher = new Teacher();
 
@@ -45,6 +48,17 @@ class TeacherController extends Controller
         // 执行对象的插入数据操作
         var_dump($Teacher->save());
         return $Teacher->name . '成功增加至数据表中。新增ID为:' . $Teacher->id;
+    }
+
+    /**
+     * 新增数据交互
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2016-11-07T12:41:23+0800
+     */
+    public function add()
+    {
+        $htmls = $this->fetch();
+        return $htmls;
     }
 }
 
