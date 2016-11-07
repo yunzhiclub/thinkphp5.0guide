@@ -113,7 +113,7 @@ class TeacherController extends IndexController
             $id = Request::instance()->param('id/d');
             
             // 判断是否成功接收
-            if (0 === $id) {
+            if (is_null($id) || 0 === $id) {
                 throw new \Exception('未获取到ID信息', 1);
             }
 
