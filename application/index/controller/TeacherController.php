@@ -1,7 +1,8 @@
 <?php
 namespace app\index\controller;     // 该文件的位于application\index\controller文件夹
 
-use think\Controller;   // 用于与V层进行数据传递
+use think\Controller;               // 用于与V层进行数据传递
+use think\Request;                  // 引用Request
 
 use app\common\model\Teacher;       // 教师模型
 
@@ -34,6 +35,9 @@ class TeacherController extends Controller
     public function insert()
     {
         var_dump($_POST);
+        // Request::instance()返回了一个对象，调用这个对象的post()方法，得到post数据
+        $postData = Request::instance()->post();    
+        var_dump($postData);
         return ;    // 提前返回
 
         // 实例化Teacher空对象
