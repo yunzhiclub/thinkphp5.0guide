@@ -39,18 +39,22 @@ class TeacherController extends Controller
 
         // 实例化Teacher空对象
         $Teacher = new Teacher();
-        
+
         // 为对象赋值
         $Teacher->name = $postData['name'];
         $Teacher->username = $postData['username'];
         $Teacher->sex = $postData['sex'];
         $Teacher->email = $postData['email'];
-        
+
         // 新增对象至数据表
-        $Teacher->save();
+        $result = $Teacher->validate(true)->save();
 
         // 反馈结果
-        return  '新增成功。新增ID为:' . $Teacher->id;
+        if (false === $result) {
+            return '新增失败:' . $Teacher->getError();
+        } else {
+            return  '新增成功。新增ID为:' . $Teacher->id;
+        }
     }
 
     /**

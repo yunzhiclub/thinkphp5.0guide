@@ -627,7 +627,25 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
             if (!empty($where)) {
                 $this->isUpdate = true;
             }
-        }
+
+         // 未传入数据，则依新增与更新分别进行验证 --- 梦云智
+        } else {
+            // 更新，只验证有变化的值
+            if ($this->isUpdate && !empty($this->change)) {
+                foreach ($this->change as $value) {
+                    $data[$value] = $this->getData($value);
+                }
+
+            // 新增，验证全部的值
+            } else {
+                $data = $this->getData();
+            }
+
+            // 数据自动验证
+            if (!$this->validateData($data, $this->isUpdate)) {
+                return false;
+            }
+        } 
 
         // 检测字段
         if (!empty($this->field)) {
@@ -889,9 +907,10 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
      * 自动验证数据
      * @access protected
      * @param array $data 验证数据
+     * @param  bool $isUpdate 是否为数据的更新操作 --- 梦云智
      * @return bool
      */
-    protected function validateData($data)
+    protected function validateData($data, $isUpdate = false)
     {
         if (!empty($this->validate)) {
             $info = $this->validate;
@@ -909,6 +928,12 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
                     $validate->scene($scene);
                 }
             }
+
+            // 进行数据更新操作则只验证有变化的字段 --- 梦云智
+            if ($isUpdate) {
+                $validate->reMakeRule($data);
+            }
+
             if (!$validate->check($data)) {
                 $this->error = $validate->getError();
                 if ($this->failException) {

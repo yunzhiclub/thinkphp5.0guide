@@ -146,6 +146,26 @@ class Validate
     }
 
     /**
+     * 重新生成规则 （删除规则中不存在的更新字段规则 ）
+     * @param    array                    $datas 要验证的数据
+     * @return                            
+     * @author panjie@yunzhiclub.com http://www.mengyunzhi.com
+     * @DateTime 2016-10-21T13:13:44+0800
+     */
+    public function reMakeRule($datas = [])
+    {
+        $rule = [];
+        if (is_array($datas)) {
+            foreach ($datas as $key => $data) {
+                if (array_key_exists($key, $this->rule)) {
+                    $rule[$key] = $this->rule[$key];
+                }
+            }
+        }
+        $this->rule = $rule;
+    }
+
+    /**
      * 注册验证（类型）规则
      * @access public
      * @param string    $type  验证规则类型
