@@ -34,24 +34,23 @@ class TeacherController extends Controller
      */
     public function insert()
     {
-        var_dump($_POST);
-        // Request::instance()返回了一个对象，调用这个对象的post()方法，得到post数据
+        // 接收传入数据
         $postData = Request::instance()->post();    
-        var_dump($postData);
-        return ;    // 提前返回
 
         // 实例化Teacher空对象
         $Teacher = new Teacher();
-
-        // 为对象的属性赋值
-        $Teacher->name = '王五';
-        $Teacher->username = 'wangwu';
-        $Teacher->sex = '1';
-        $Teacher->email = 'wangwu@yunzhi.club';
         
-        // 执行对象的插入数据操作
-        var_dump($Teacher->save());
-        return $Teacher->name . '成功增加至数据表中。新增ID为:' . $Teacher->id;
+        // 为对象赋值
+        $Teacher->name = $postData['name'];
+        $Teacher->username = $postData['username'];
+        $Teacher->sex = $postData['sex'];
+        $Teacher->email = $postData['email'];
+        
+        // 新增对象至数据表
+        $Teacher->save();
+
+        // 反馈结果
+        return  '新增成功。新增ID为:' . $Teacher->id;
     }
 
     /**
