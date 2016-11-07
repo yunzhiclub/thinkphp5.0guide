@@ -50,23 +50,7 @@
                 </tr>
                 {/volist}
             </table>
-            <nav>
-                <ul class="pagination">
-                    <li>
-                        <a href="{:url('?page=1')}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li><a href="?page=1">1</a></li>
-                    <li><a href="?page=2">2</a></li>
-                    <li><a href="?page=3">3</a></li>
-                    <li>
-                        <a href="?page=3" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+            {$teachers->render()}
         </div>
     </div>
 </body>
