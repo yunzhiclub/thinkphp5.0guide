@@ -136,22 +136,35 @@ class TeacherController extends Controller
      */
     public function update()
     {
-        // 接收数据
-        $teacher = Request::instance()->post();
-
-        // 将数据存入Teacher表
-        $Teacher = new Teacher();
-        $message = '更新成功';
-
-        // 依据状态定制提示信息
         try {
-            if (false === $Teacher->validate(true)->isUpdate()->save($teacher)) {
-                $message = '更新失败：' . $Teacher->getError();
+            // 接收数据，取要更新的关键字信息
+            $id = Request::instance()->post('id/d');
+            $message = '';
+
+            // 获取当前对象
+            $teacher = Teacher::get($id);
+
+            if (!is_null($teacher)) {
+                // 写入要更新的数据
+                $teacher->name = Request::instance()->post('name');
+                $teacher->username = Request::instance()->post('username');
+                $teacher->sex = Request::instance()->post('sex/d');
+                $teacher->email = Request::instance()->post('email');
+
+                // 更新
+                if (false === $teacher->validate(true)->save())
+                {
+                    $message =  '更新失败' . $teacher->getError();
+                }
+            } else {
+                throw new \Exception("所更新的记录不存在", 1);   // 调用PHP内置类时，需要在前面加上 \ 
             }
         } catch (\Exception $e) {
-            $message = '更新失败:' . $e->getMessage();
+            // 由于对异常进行了处理，如果发生了错误，我们仍然需要查看具体的异常位置及信息，那么需要将以下的代码的注释去掉
+            // throw $e;
+            $message = $e->getMessage();
         }
-
+       
         return $message;
     }
 }
