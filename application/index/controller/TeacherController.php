@@ -44,8 +44,8 @@ class TeacherController extends Controller
         $Teacher = new Teacher();
 
         // 向teacher表中插入数据并判断是否插入成功
-        $state = $Teacher->data($teacher)->save();
-        var_dump($state);
+        $Teacher->data($teacher)->save();
+        return $teacher['name'] . '成功增加至数据表中';
     }
 }
 
