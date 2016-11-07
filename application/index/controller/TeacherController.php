@@ -186,33 +186,36 @@ class TeacherController extends Controller
         try {
             // 接收数据，取要更新的关键字信息
             $id = Request::instance()->post('id/d');
-            $message = '';
 
             // 获取当前对象
             $teacher = Teacher::get($id);
 
             if (!is_null($teacher)) {
                 // 写入要更新的数据
-                $teacher->name = Request::instance()->post('name');
-                $teacher->username = Request::instance()->post('username');
-                $teacher->sex = Request::instance()->post('sex/d');
-                $teacher->email = Request::instance()->post('email');
+                $teacher->name = input('post.name');
+                $teacher->username = input('post.username');
+                $teacher->sex = input('post.sex');
+                $teacher->email = input('post.email');
 
                 // 更新
-                if (false === $teacher->validate(true)->save())
-                {
-                    $message =  '更新失败' . $teacher->getError();
+                if (false === $teacher->validate(true)->save()) {
+                    return $this->error('更新失败' . $teacher->getError());
                 }
             } else {
                 throw new \Exception("所更新的记录不存在", 1);   // 调用PHP内置类时，需要在前面加上 \ 
             }
+
+        // 获取到ThinkPHP的内置异常时，直接向上抛出，交给ThinkPHP处理
+        } catch (\think\Exception\HttpResponseException $e) {
+            throw $e;
+
+        // 获取到正常的异常时，输出异常
         } catch (\Exception $e) {
-            // 由于对异常进行了处理，如果发生了错误，我们仍然需要查看具体的异常位置及信息，那么需要将以下的代码的注释去掉
-            // throw $e;
-            $message = $e->getMessage();
-        }
-       
-        return $message;
+            return $e->getMessage();
+        } 
+        
+        // 成功跳转至index触发器
+        return $this->success('操作成功', url('index'));
     }
 
     public function test()
