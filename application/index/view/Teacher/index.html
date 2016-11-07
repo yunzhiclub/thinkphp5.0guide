@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<!--修正一个小错误，正确的简体中文界面应该声明为 zh-hans-->
+<html lang="zh-hans">
 <head>
     <meta charset="UTF-8">
     <title>教师管理</title>
@@ -13,13 +14,15 @@
             <th>邮箱</th>
             <th>用户名</th>
         </tr>
+        {volist name="teachers" id="teacher" key="key"}
         <tr>
-            <td>1</td>
-            <td>张三</td>
-            <td>男</td>
-            <td>11@maol.com</td>
-            <td>zhangsan</td>
+            <td>{$key}</td>
+            <td>{$teacher->getData('name')}</td>
+            <td>{eq name='teacher->getData("sex")' value='0'}男{else /}女{/eq}</td>
+            <td>{$teacher->getData('email')}</td>
+            <td>{$teacher->getData('username')}</td>
         </tr>
+        {/volist}
     </table>
 </body>
 </html>
