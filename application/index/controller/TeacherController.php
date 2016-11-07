@@ -21,12 +21,8 @@ class TeacherController extends Controller
             // 设置每页大小
             $pageSize = 5;
 
-            // 获取偏移量offset
-            $offset = ($page - 1) * $pageSize;
-
             $Teacher = new Teacher; 
-            $teachers = $Teacher->limit($offset, $pageSize)->select();
-            echo $Teacher->getLastSql();    // 获取最后一次操作的SQL语句
+            $teachers = $Teacher->page($page, $pageSize)->select();
 
             // 向V层传数据
             $this->assign('teachers', $teachers);
