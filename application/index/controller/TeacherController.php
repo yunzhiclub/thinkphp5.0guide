@@ -39,10 +39,13 @@ class TeacherController extends Controller
         $teacher['username'] = 'wangwu';
         $teacher['sex'] = '1';
         $teacher['email'] = 'wangwu@yunzhi.club';
-        var_dump($teacher);
-        
+
         // 引用teacher数据表对应的模型
+        $Teacher = new Teacher();
+
         // 向teacher表中插入数据并判断是否插入成功
+        $state = $Teacher->data($teacher)->save();
+        var_dump($state);
     }
 }
 
