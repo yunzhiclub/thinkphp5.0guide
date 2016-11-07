@@ -13,17 +13,23 @@ class TeacherController extends Controller
 {
     public function index()
     {
-        $Teacher = new Teacher; 
-        $teachers = $Teacher->select();
+        try {
+            $Teacher = new Teacher; 
+            $teachers = $Teacher->select();
 
-        // 向V层传数据
-        $this->assign('teachers', $teachers);
+            // 向V层传数据
+            $this->assign('teachers', $teachers);
 
-        // 取回打包后的数据
-        $htmls = $this->fetch();
+            // 取回打包后的数据
+            $htmls = $this->fetch();
 
-        // 将数据返回给用户
-        return $htmls;
+            // 将数据返回给用户
+            return $htmls;
+        } catch (\Exception $e) {
+            // 由于对异常进行了处理，如果发生了错误，我们仍然需要查看具体的异常位置及信息，那么需要将以下代码的注释去掉。
+            // throw $e;
+            return '系统错误' . $e->getMessage();
+        }
     }
 
     /**
