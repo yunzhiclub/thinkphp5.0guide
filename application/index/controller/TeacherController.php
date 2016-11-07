@@ -14,15 +14,22 @@ class TeacherController extends Controller
     public function index()
     {
         try {
-            // 获取当前页
-            $page = Request::instance()->get('page/d');
-            $page = $page < 1 ? 1 : $page;
+            // 获取查询信息
+            $name = Request::instance()->get('name');
+            echo $name;
 
-            // 设置每页大小
-            $pageSize = 5;
+            $pageSize = 5; // 每页显示5条数据
 
+            // 实例化Teacher
             $Teacher = new Teacher; 
-            $teachers = $Teacher->page($page, $pageSize)->select();
+
+            // 定制查询信息
+            if (!empty($name)) {
+                $Teacher->where('name', 'like', '%' . $name . '%');
+            }
+
+            // 按条件查询数据并调用分页
+            $teachers = $Teacher->paginate($pageSize);
 
             // 向V层传数据
             $this->assign('teachers', $teachers);
