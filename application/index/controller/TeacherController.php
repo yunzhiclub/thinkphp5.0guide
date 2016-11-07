@@ -127,5 +127,16 @@ class TeacherController extends Controller
         // 将封装好的V层内容返回给用户
         return $htmls;
     }
+
+    /**
+     * 更新
+     * @return                      
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2016-11-07T14:03:41+0800
+     */
+    public function update()
+    {
+        var_dump(Request::instance()->post());
+    }
 }
 
