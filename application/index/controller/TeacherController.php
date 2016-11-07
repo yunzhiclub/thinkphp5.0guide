@@ -14,13 +14,19 @@ class TeacherController extends Controller
     public function index()
     {
         try {
-            $pageSize = 5; // 每页显示5条数据
+            // 获取当前页
+            $page = Request::instance()->get('page/d');
+            $page = $page < 1 ? 1 : $page;
 
-            // 实例化Teacher
+            // 设置每页大小
+            $pageSize = 5;
+
+            // 获取偏移量offset
+            $offset = ($page - 1) * $pageSize;
+
             $Teacher = new Teacher; 
-
-            // 调用分页
-            $teachers = $Teacher->paginate($pageSize);
+            $teachers = $Teacher->limit($offset, $pageSize)->select();
+            echo $Teacher->getLastSql();    // 获取最后一次操作的SQL语句
 
             // 向V层传数据
             $this->assign('teachers', $teachers);

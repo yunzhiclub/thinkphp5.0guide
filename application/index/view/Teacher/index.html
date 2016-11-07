@@ -22,7 +22,7 @@
                     <th>用户名</th>
                     <th>操作</th>
                 </tr>
-                {foreach name="teachers" id="_Teacher" key="key"}
+                {volist name="teachers" id="_Teacher" key="key"}
                 <tr>
                     <td>{$key}</td>
                     <td>{$_Teacher->getData('name')}</td>
@@ -35,9 +35,25 @@
                         <a href="{:url('delete?id=' . $_Teacher->getData('id'))}">删除</a>
                     </td>
                 </tr>
-                {/foreach}
+                {/volist}
             </table>
-            {$teachers->render()}
+            <nav>
+                <ul class="pagination">
+                    <li>
+                        <a href="{:url('?page=1')}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li><a href="?page=1">1</a></li>
+                    <li><a href="?page=2">2</a></li>
+                    <li><a href="?page=3">3</a></li>
+                    <li>
+                        <a href="?page=3" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </body>
