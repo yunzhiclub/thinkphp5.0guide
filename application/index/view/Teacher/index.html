@@ -22,21 +22,22 @@
                     <th>用户名</th>
                     <th>操作</th>
                 </tr>
-                {volist name="teachers" id="teacher" key="key"}
+                {volist name="teachers" id="_Teacher" key="key"}
                 <tr>
                     <td>{$key}</td>
-                    <td>{$teacher->getData('name')}</td>
-                    <td>{eq name='teacher->getData("sex")' value='0'}男{else /}女{/eq}</td>
-                    <td>{$teacher->getData('email')}</td>
-                    <td>{$teacher->getData('username')}</td>
+                    <td>{$_Teacher->getData('name')}</td>
+                    <td>{eq name='_Teacher->getData("sex")' value='0'}男{else /}女{/eq}</td>
+                    <td>{$_Teacher->getData('email')}</td>
+                    <td>{$_Teacher->getData('username')}</td>
                     <td>
-                        <a href="{:url('edit?id=' . $teacher->getData('id'))}">编辑</a>
+                        <a href="{:url('edit?id=' . $_Teacher->getData('id'))}">编辑</a>
                         &nbsp;&nbsp;
-                        <a href="{:url('delete?id=' . $teacher->getData('id'))}">删除</a>
+                        <a href="{:url('delete?id=' . $_Teacher->getData('id'))}">删除</a>
                     </td>
                 </tr>
                 {/volist}
             </table>
+            {$teachers->render()}
         </div>
     </div>
 </body>

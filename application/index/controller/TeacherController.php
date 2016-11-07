@@ -14,8 +14,13 @@ class TeacherController extends Controller
     public function index()
     {
         try {
+            $pageSize = 5; // 每页显示5条数据
+
+            // 实例化Teacher
             $Teacher = new Teacher; 
-            $teachers = $Teacher->select();
+
+            // 调用分页
+            $teachers = $Teacher->paginate($pageSize);
 
             // 向V层传数据
             $this->assign('teachers', $teachers);
@@ -25,11 +30,15 @@ class TeacherController extends Controller
 
             // 将数据返回给用户
             return $htmls;
+
+        // 获取到ThinkPHP的内置异常时，直接向上抛出，交给ThinkPHP处理
+        } catch (\think\Exception\HttpResponseException $e) {
+            throw $e;
+
+        // 获取到正常的异常时，输出异常
         } catch (\Exception $e) {
-            // 由于对异常进行了处理，如果发生了错误，我们仍然需要查看具体的异常位置及信息，那么需要将以下代码的注释去掉。
-            // throw $e;
-            return '系统错误' . $e->getMessage();
-        }
+            return $e->getMessage();
+        } 
     }
 
     /**
