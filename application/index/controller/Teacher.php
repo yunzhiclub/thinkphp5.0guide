@@ -6,6 +6,10 @@ class Teacher
 {
     public function index()
     {
-        return 'hello Teacher';
+        // 获取教师表中的所有数据
+        $teachers = Db::name('teacher')->select();
+
+        // 查看获取的数据
+        var_dump($teachers);
     }
 }
