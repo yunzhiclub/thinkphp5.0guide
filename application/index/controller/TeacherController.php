@@ -9,6 +9,6 @@ class TeacherController
     public function index()
     {
         $Teacher = new Teacher;
-        dump($Teacher);
+        var_dump($Teacher);
     }
 }
