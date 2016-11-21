@@ -43,7 +43,7 @@ class TeacherController extends Controller
         $Teacher->email = 'wangwu@yunzhi.club';
         
         // 执行对象的插入数据操作
-        var_dump($Teacher->save());
+        $Teacher->save();
         return $Teacher->name . '成功增加至数据表中。新增ID为:' . $Teacher->id;
     }
 }
