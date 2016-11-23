@@ -139,7 +139,7 @@ class TeacherController extends Controller
         try {
             // 接收数据，取要更新的关键字信息
             $id = Request::instance()->post('id/d');
-            $message = '';
+            $message = '更新成功';
 
             // 获取当前对象
             $teacher = Teacher::get($id);
