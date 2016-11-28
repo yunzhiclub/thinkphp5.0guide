@@ -107,7 +107,7 @@ class TeacherController extends Controller
             $id = Request::instance()->param('id/d');
             
             // 判断是否成功接收
-            if (0 === $id) {
+            if (is_null($id) || 0 === $id) {
                 throw new \Exception('未获取到ID信息', 1);
             }
 
@@ -149,6 +149,11 @@ class TeacherController extends Controller
             // 获取传入ID
             $id = Request::instance()->param('id/d');
 
+            // 判断是否成功接收
+            if (is_null($id) || 0 === $id) {
+                throw new \Exception('未获取到ID信息', 1);
+            }
+            
             // 在Teacher表模型中获取当前记录
             if (null === $teacher = Teacher::get($id))
             {
